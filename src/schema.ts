@@ -26,7 +26,7 @@ export interface ISchemaOptions {
 	tags: string[];
 }
 
-export type FieldMap = { [name: string]: string | number | boolean };
+export type FieldMap = { [name: string]: string | number | bigint | boolean };
 
 /**
  * The Schema provides information and utilities for an InfluxDB measurement.
@@ -78,7 +78,11 @@ export class Schema {
 						throw new Error(`Expected numeric value for ${this._ref(field)}, but got '${value}'!`);
 					}
 
-					coerced = String(Math.floor(value as number)) + 'i';
+					if (typ === 'bigint') {
+						coerced = String(value) + 'i';
+					} else {
+						coerced = String(Math.floor(value as number)) + 'i';
+					}
 					break;
 
 				case FieldType.FLOAT:

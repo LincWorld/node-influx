@@ -38,7 +38,7 @@ describe('schema', () => {
 		it('coerces data correctly', () => {
 			expect(
 				schema.coerceFields({
-					int: 42,
+					int: BigInt(42),
 					float: 43,
 					string: 'hello"world',
 					bool: true
@@ -54,7 +54,7 @@ describe('schema', () => {
 		it('accepts partial data', () => {
 			expect(
 				schema.coerceFields({
-					int: 42
+					int: BigInt(42)
 				}),
 			).to.deep.equal([['int', '42i']]);
 		});
@@ -70,7 +70,7 @@ describe('schema', () => {
 		it('strips null and undefined values', () => {
 			expect(
 				schema.coerceFields({
-					int: 42,
+					int: BigInt(42),
 					float: undefined,
 					bool: null
 				}),
