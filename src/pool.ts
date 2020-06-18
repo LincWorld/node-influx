@@ -1,6 +1,7 @@
 import {IBackoffStrategy} from './backoff/backoff';
 import {ExponentialBackoff} from './backoff/exponential';
 import {Host} from './host';
+import BigJSON from '@lincworld/json-bigint';
 
 import * as http from 'http';
 import * as https from 'https';
@@ -229,7 +230,7 @@ export class Pool {
    * An error is returned on a non-2xx status code or on a parsing exception.
    */
 	public json(options: IPoolRequestOptions): Promise<any> {
-		return this.text(options).then(res => JSON.parse(res));
+		return this.text(options).then(res => BigJSON.parse(res));
 	}
 
 	/**
